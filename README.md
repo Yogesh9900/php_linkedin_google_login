@@ -1,4 +1,4 @@
-# PHP LinkedIn and GOogle Login Example
+# PHP LinkedIn and Google Login Example OAuth 2.
 
 Simple PHP LinkedIn and Google Login Example OAuth 2.
 
