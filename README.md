@@ -1,12 +1,8 @@
 # PHP LinkedIn and GOogle Login Example
 
-Simple PHP LinkedIn and GOogle Login Example.
+Simple PHP LinkedIn and Google Login Example OAuth 2.
 
-PHP 7.3
-
-
-
-### Prerequisites
+## Getting Started
 1) Index.php
 
 Add two buttons for login.
