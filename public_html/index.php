@@ -4,6 +4,8 @@
 <head>
         
 <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content=""><!-- ADD YOUR GOOGLE KEY -->
+ <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -22,7 +24,7 @@
         gapi.load('auth2', function(){
           // Retrieve the singleton for the GoogleAuth library and set up the client.
           auth2 = gapi.auth2.init({
-            client_id: '',
+            client_id: '', //Add Your Client Key
             cookiepolicy: 'single_host_origin',
             // Request scopes in addition to 'profile' and 'email'
             //scope: 'additional_scope'
@@ -36,15 +38,16 @@
             function(googleUser) {
                   console.log("googleUser",googleUser.getBasicProfile().getId());
                   var profile = googleUser.getBasicProfile();
-                   $.post("/dashboard.php", {id: profile.getId(), full_name: profile.getName(), image: profile.getImageUrl(), email:  profile.getEmail()}, function(data) {
-                    alert(data);
+      $.post("/google_login_data.php", {token: profile.getId(), name: profile.getName(), image: profile.getImageUrl(), email:  profile.getEmail()}, function(data) {
+        window.location.href="http://localhost/dashboard.php";
                    } ); 
                     return false;
                
             }, function(error) {
-              alert(JSON.stringify(error, undefined, 2));
+              //alert(JSON.stringify(error, undefined, 2));
             });
       }
+
 
     </script>
 </head>

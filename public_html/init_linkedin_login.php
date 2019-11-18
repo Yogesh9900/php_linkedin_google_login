@@ -1,13 +1,13 @@
 <?php
 // Change these
-define('API_KEY',      '');
-define('API_SECRET',   '');
+define('API_KEY', '');//Your API key
+define('API_SECRET', '');//Your Secret Key
 define('REDIRECT_URI', ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")?'https':'http').'://' . $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME']);
 define('SCOPE',        'r_liteprofile r_emailaddress'                        );
-// You'll probably use a database
+
 session_name('linkedin');
 session_start();
-print_r($_SESSION['access_token']);
+
 
 // OAuth 2 Control Flow
 if (isset($_GET['error'])) {
@@ -35,8 +35,7 @@ if (isset($_GET['error'])) {
     }
 }
 
-// Congratulations! You have a valid token. Now fetch your profile 
-$user = fetch('GET', '/v1/people/~:(id,first-name,last-name,headline,email-address,picture-url,industry,site-standard-profile-request,interests,summary,main-address,phone-numbers,skills:(skill))');
+$user = fetch('GET');
 
 var_dump($user);die;
  
@@ -90,16 +89,12 @@ function getAccessToken() {
     return true;
 }
  
-function fetch($method, $resource, $body = '') {
-    $params = array('oauth2_access_token' => $_SESSION['access_token'],
+function fetch($method, $body = '') {
+$params = array('oauth2_access_token' => $_SESSION['access_token'],
                     'format' => 'json',
-              );
+        );
  
-    // Need to use HTTPS
-    //$url = 'https://api.linkedin.com' . $resource . '?' . http_build_query($params);
-//https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))&oauth2_access_token=$_SESSION['access_token']
-   
-    // Tell streams to make a (GET, POST, PUT, or DELETE) request
+
     $context = stream_context_create(
                     array('http' => 
                         array('method' => $method,
@@ -111,22 +106,19 @@ function fetch($method, $resource, $body = '') {
     $response = file_get_contents( $getEmailData, false, $context);
     $email = json_decode($response)->elements[0]->{"handle~"}->emailAddress;
     //printf($email);
-
     //get first name and last name.
     $getNameData = 'https://api.linkedin.com/v2/me?oauth2_access_token=' . $_SESSION['access_token'];
     $nameResponse = file_get_contents($getNameData, false, $context);
-    $userName =  json_decode($nameResponse);
-    //print_r($userName);
+    $userName =  json_decode($nameResponse, true);
+    //echo 'f_name = '.$userName['firstName'];
+$first_name = $userName['localizedFirstName'];
+$last_name=$userName['localizedLastName'];
+$image = '';
+$mobile = '';
+$id= $userName['id'];
+$_SESSION['email']  = $email;
+header("Location:http://localhost/dashboard.php");
+    exit;
 
 
-    //getProfileImage
-        //get first name and last name.
-    $createImageUrl = 'https://api.linkedin.com/v2/me?projection=(id,profilePicture(displayImage~:playableStreams))&oauth2_access_token=' . $_SESSION['access_token'];
-    $imageResponse = file_get_contents($createImageUrl, false, $context);
-    $imageData =   json_decode($imageResponse, true);
-    $image_url  =  $imageData->profilePicture[1];
-    printf($image_url);
-    //print_r($image_url);
-
-
-}
+}?>

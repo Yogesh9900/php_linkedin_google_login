@@ -1,6 +1,6 @@
 <?php
+session_start();
+echo "Name: " . $_SESSION['name'];
 
-if(isset($_POST['full_name'])){
-    print_r( $_POST );
-}
+echo ",  Email: " .$_SESSION['email'];
 ?>
