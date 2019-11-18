@@ -11,6 +11,4 @@ $id= $_POST['token'];
 $_SESSION['name']= $first_name;
 $_SESSION['email']= $email;
 
-
-
 ?>
