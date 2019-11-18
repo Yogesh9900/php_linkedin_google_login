@@ -2,6 +2,8 @@
 
 Simple PHP LinkedIn and Google Login Example OAuth 2.
 
+visit https://phplinkedingoogleoauth2.blogspot.com/2019/11/php-linkedin-and-google-login-example.html
+
 ## Getting Started
 1) Index.php
 
