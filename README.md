@@ -302,7 +302,7 @@ $_SESSION['email']= $email;
 4) Dashboard.php
 Redirect to dashboard after successful login.
 ```
-Give an exam<?php
+<?php
 session_start();
 echo "Name: " . $_SESSION['name'];
 
