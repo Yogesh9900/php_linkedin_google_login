@@ -281,7 +281,7 @@ header("Location:http://localhost/dashboard.php");
 ```
 
 3) google_login_data.php
-You can insert values in to the database after succesful google login and redirect to dashboard.
+You can insert values into the database after successful google login and redirect to dashboard.
 ```
 <?php
 session_start();
